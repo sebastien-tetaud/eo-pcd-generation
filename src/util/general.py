@@ -44,27 +44,30 @@ import xarray as xr
 from pyproj import Transformer
 
 
-def load_dem_utm(token, parameters,  bounds, width, height):
+import xarray as xr
+import numpy as np
+
+def load_dem_utm(url, bounds, width, height):
     """
     Loads the Copernicus DEM and selects the region of interest.
 
     Parameters:
-        token (str): Authentication token for accessing the dataset.
-        parameters(str): Parameters.
+        url (str): URL of the DEM dataset.
         bounds (rasterio.coords.BoundingBox): Bounding box with left,
-        right, bottom, top coordinates.
+            right, bottom, and top coordinates.
         width (int): Number of pixels (columns) in the target image.
         height (int): Number of pixels (rows) in the target image.
 
     Returns:
         xarray.DataArray: DEM region of interest.
     """
-    # Define the dataset URL
-
-    dem_url = (f"https://edh:{token}@data.earthdatahub.destine.eu/\
-        copernicus-dem-utm/GLO-30-UTM-v0/32N")
     # Load the dataset
-    dem = xr.open_dataset(dem_url, chunks={}, engine="zarr")
+    dem = xr.open_dataset(
+        url,
+        chunks={},
+        storage_options={"client_kwargs": {"trust_env": True}},
+        engine="zarr"
+    )
 
     # Create UTM coordinate grid
     x = np.linspace(bounds.left, bounds.right, width)
@@ -73,7 +76,7 @@ def load_dem_utm(token, parameters,  bounds, width, height):
     # Select the DEM region of interest using nearest interpolation
     dem_roi = dem.sel(x=x, y=y, method="nearest")
 
-    return dem_roi[parameters]
+    return dem_roi
 
 
 class Sentinel2Reader:
