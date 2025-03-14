@@ -19,24 +19,20 @@ from util.general import (PcdGenerator, PointCloudHandler, Sentinel2Reader,
 # Retrieve authentication token
 token = os.environ.get('hdb_token')
 
-# Define the Sentinel-2 product path
-product_path = "/home/ubuntu/project/destine-godot-mvp/src/sentinel2-data/\
-    T32TLR_20241030T103151_TCI_20m.jp2"
-
-# Read Sentinel-2 data
+data_url = f"https://edh:{token}@data.earthdatahub.destine.eu/copernicus-dem-utm/GLO-30-UTM-v0/32N"
+product_path = "/home/ubuntu/project/destine-godot-mvp/src/sentinel2-data/T32TLR_20241030T103151_TCI_20m.jp2"
 reader = Sentinel2Reader(filepath=product_path, preprocess=True)
 bounds = reader.bounds
 width = reader.width
 height = reader.height
-
-# Load DEM data
 parameter = 'dem'
-dem_data = load_dem_utm(token, parameter, bounds, width, height)
-
+dem_data = load_dem_utm(url=data_url, bounds=bounds, width=width, height=height)
 # Initialize and generate point cloud
-pcd_gen = PcdGenerator(reader.data, dem_data)
+pcd_gen = PcdGenerator(reader.data, dem_data["dem"])
+
+# downsample point cloud data using Open3D functionality
 pcd_gen.generate_point_cloud()
-pcd_gen.downsample(sample_fraction=0.20)
+pcd_gen.downsample(sample_fraction=0.2)
 
 # Process and save point cloud and mesh
 handler = PointCloudHandler(pcd_gen.df)
