@@ -8,9 +8,7 @@ sudo apt install -y g++ cmake libboost-all-dev libjsoncpp-dev libxml2-dev libgda
 ```
 
 
-
 ```bash
 cd /eo-pcd-generation/src/data
-
 unzip grille.zip
 ```
