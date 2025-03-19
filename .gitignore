@@ -1,7 +1,6 @@
 #custom
 data/
 sentinel2-data/
-ign-resources/
 dem-data/
 *.png
 *.jpg
