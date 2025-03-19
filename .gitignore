@@ -1,5 +1,4 @@
 #custom
-data/
 sentinel2-data/
 dem-data/
 *.png
