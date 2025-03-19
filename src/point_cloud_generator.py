@@ -25,7 +25,6 @@ reader = Sentinel2Reader(filepath=product_path, preprocess=True)
 bounds = reader.bounds
 width = reader.width
 height = reader.height
-parameter = 'dem'
 dem_data = load_dem_utm(url=data_url, bounds=bounds, width=width, height=height)
 # Initialize and generate point cloud
 pcd_gen = PcdGenerator(reader.data, dem_data["dem"])
