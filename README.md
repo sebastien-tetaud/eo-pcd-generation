@@ -13,21 +13,6 @@ The project demonstrates various techniques for processing and visualizing geosp
 
 ## Repository Structure
 
-```
-.
-├── notebooks/
-│   ├── basic_part_1.ipynb         # Basic DEM visualization
-│   ├── basic_part_2.ipynb         # Point cloud generation from DEM and Sentinel-2
-│   └── basic_part_3.ipynb         # IGN HD LiDAR processing
-├── src/
-│   ├── data/                      # Data storage directory
-│   │   ├── sentinel2/             # Sentinel-2 imagery
-│   │   └── ign/                   # IGN LiDAR data
-│   └── util/                      # Utility functions
-│       └── general.py             # Common processing functions
-└── README.md                      # This file
-```
-
 ```bash
 ├── LICENSE
 ├── README.md
@@ -120,23 +105,11 @@ git clone git@github.com:sebastien-tetaud/eo-pcd-generation.git
 ```bash
 conda create --name env python==3.13.1
 conda activate env
-pip install -r requiremts.txt
 ```
-
+Run cli to install all the packages
+s
 ```bash
-python -m pip install "xarray[complete]" -y
-```
-
-```bash
-conda install -c conda-forge gdal -y
-```
-
-```bash
-conda install -c conda-forge python-pdal -y
-```
-
-```bash
-conda install -c conda-forge open3d -y
+sh install_packages.sh
 ```
 
 3. Set up your Earth Data Hub token as an environment variable:
