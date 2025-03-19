@@ -8,7 +8,10 @@ dem-data/
 *.laz
 *.ply
 *.html
-
+*.shp
+*.shx
+*.prj
+*.dbf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
